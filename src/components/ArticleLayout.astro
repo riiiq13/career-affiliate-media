@@ -1,0 +1,58 @@
+---
+import Layout from "./Layout.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import RelatedArticles from "./RelatedArticles.astro";
+import AffiliateDisclosure from "./AffiliateDisclosure.astro";
+import CTABox from "./CTABox.astro";
+import { getCategoryPath } from "../utils/seo";
+import { makeArticleSchema, makeBreadcrumbSchema, makeFAQPageSchema } from "../utils/schema";
+
+const { entry } = Astro.props;
+const data = entry.data;
+const path = `/articles/${entry.slug}/`;
+const breadcrumbs = [
+  { label: "トップ", href: "/" },
+  { label: data.category, href: getCategoryPath(data.category) },
+  { label: data.title, href: path }
+];
+const jsonLd = [
+  makeArticleSchema({
+    title: data.title,
+    description: data.description,
+    path,
+    updatedAt: data.updated_at,
+    category: data.category
+  }),
+  makeFAQPageSchema(data.faqs),
+  makeBreadcrumbSchema(breadcrumbs)
+];
+---
+
+<Layout title={data.title} description={data.description} path={path} ogType="article" jsonLd={jsonLd}>
+  <main class="container article-shell">
+    <Breadcrumbs items={breadcrumbs} />
+    <header class="article-header">
+      <p class="eyebrow">{data.category}</p>
+      <h1>{data.title}</h1>
+      <p class="lead">{data.description}</p>
+      <div class="article-meta">
+        <span>更新日: {data.updated_at}</span>
+        <span>対象読者: {data.target_reader}</span>
+      </div>
+      <AffiliateDisclosure />
+    </header>
+    <article class="article-body">
+      <slot />
+      <CTABox
+        title="次に選ぶべき導線を整理する"
+        text="この記事で方向性が見えたら、転職支援・スクール・AI活用の比較ページで、自分の状況に合う選択肢を確認してください。"
+        primaryHref="/diagnosis/career-route-check/"
+        primaryLabel="キャリアルート診断を受ける"
+        secondaryHref="/lp/job-change-support/"
+        secondaryLabel="転職支援を比較する"
+        note="退職や労働問題に法律上の争いがある場合は、弁護士など専門家への相談を優先してください。"
+      />
+    </article>
+    <RelatedArticles relatedSlugs={data.related_articles} />
+  </main>
+</Layout>

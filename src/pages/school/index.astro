@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import CategoryHero from "../../components/CategoryHero.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import CTABox from "../../components/CTABox.astro";
+import { categories } from "../../utils/seo";
+import { makeBreadcrumbSchema, makeWebPageSchema } from "../../utils/schema";
+
+const category = categories.find((item) => item.slug === "school");
+const articles = (await getCollection("articles")).filter((article) => article.data.category === "資格・スクール");
+const breadcrumbs = [{ label: "トップ", href: "/" }, { label: "資格・スクール", href: "/school/" }];
+const jsonLd = [
+  makeWebPageSchema({ title: "資格・スクール", description: category.description, path: "/school/" }),
+  makeBreadcrumbSchema(breadcrumbs)
+];
+---
+
+<Layout title="資格・スクール" description={category.description} path="/school/" jsonLd={jsonLd}>
+  <main>
+    <CategoryHero title="資格・スクール" description={category.description} monetization={category.monetization} />
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>資格・スクールの記事</h2>
+          <p class="muted">先に学ぶべきか、求人を見た方がいいかを分けて考えます。</p>
+        </div>
+        <div class="grid">
+          {articles.map((article) => <ArticleCard article={article} />)}
+        </div>
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container">
+        <CTABox
+          title="資格・スクールの費用対効果を比較する"
+          text="資格スクール、ITスクール、Webマーケスクール、通信講座は向いている人が異なります。目的と学習時間を基準に選びましょう。"
+          primaryHref="/lp/school-comparison/"
+          primaryLabel="スクール比較LPを見る"
+          secondaryHref="/articles/shikaku-torubeki-hito/"
+          secondaryLabel="資格を取るべき人を読む"
+        />
+      </div>
+    </section>
+  </main>
+</Layout>

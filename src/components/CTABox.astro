@@ -1,0 +1,23 @@
+---
+interface Props {
+  title: string;
+  text: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  note?: string;
+}
+
+const { title, text, primaryHref, primaryLabel, secondaryHref, secondaryLabel, note } = Astro.props;
+---
+
+<aside class="cta-box">
+  <h2>{title}</h2>
+  <p>{text}</p>
+  <div class="button-row">
+    <a class="button" href={primaryHref}>{primaryLabel}</a>
+    {secondaryHref && secondaryLabel && <a class="button button--secondary" href={secondaryHref}>{secondaryLabel}</a>}
+  </div>
+  {note && <p class="muted">{note}</p>}
+</aside>

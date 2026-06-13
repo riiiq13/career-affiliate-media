@@ -1,0 +1,135 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../components/Layout.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import AffiliateDisclosure from "../components/AffiliateDisclosure.astro";
+import { categories } from "../utils/seo";
+import { makeWebPageSchema } from "../utils/schema";
+
+const articles = (await getCollection("articles")).slice(0, 6);
+const jsonLd = makeWebPageSchema({
+  title: "未経験からキャリアを立て直すための選択肢を整理する",
+  description:
+    "学歴・職歴・正社員経験に自信がない20代から30代向けに、転職・資格・AI活用・スクール・退職判断を現実的に整理します。",
+  path: "/"
+});
+---
+
+<Layout
+  title="未経験からキャリアを立て直すための選択肢を整理する"
+  description="学歴・職歴・正社員経験に自信がない20代から30代向けに、転職・資格・AI活用・スクール・退職判断を現実的に整理します。"
+  path="/"
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="hero">
+      <div class="container hero__content">
+        <p class="eyebrow">未経験キャリア研究所</p>
+        <h1>未経験からキャリアを立て直すための選択肢を整理する</h1>
+        <p class="lead">
+          学歴・職歴・正社員経験に自信がなくても、選ぶ職種・学ぶ順番・辞める判断を間違えなければ、キャリアは作り直せます。未経験キャリア研究所では、転職・資格・AI活用・スクール・退職判断を現実的に整理します。
+        </p>
+        <div class="button-row">
+          <a class="button" href="/diagnosis/career-route-check/">キャリアルート診断を始める</a>
+          <a class="button button--secondary" href="/lp/job-change-support/">転職支援を比較する</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>このサイトで分かること</h2>
+          <p class="muted">努力量ではなく、選ぶ場所と順番を整理します。</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>未経験転職の現実的な選び方</h3>
+            <p>職歴に自信がない人が、応募しやすさだけで仕事を選ばないための判断軸をまとめます。</p>
+          </div>
+          <div class="card">
+            <h3>資格・スクールの使いどころ</h3>
+            <p>資格を取るべき人と、先に求人や実務経験を見た方がいい人を分けて考えます。</p>
+          </div>
+          <div class="card">
+            <h3>AI活用と副業の始め方</h3>
+            <p>AIを学ぶこと自体ではなく、仕事や転職で説明できる成果に変える道筋を整理します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-heading">
+          <h2>悩み別に探す</h2>
+          <p class="muted">今の状態に近い入口から読むと迷いにくくなります。</p>
+        </div>
+        <div class="grid grid--2">
+          <a class="card" href="/articles/20dai-kouhan-keireki-yowai-tenshoku/">20代後半で職歴に自信がない</a>
+          <a class="card" href="/articles/shikaku-torubeki-hito/">資格を取るべきか迷っている</a>
+          <a class="card" href="/ai-career/">AIを転職や仕事に活かしたい</a>
+          <a class="card" href="/quit-work/">仕事を辞めたいが、次が不安</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>カテゴリ一覧</h2>
+          <a href="/diagnosis/career-route-check/">迷う人は診断へ</a>
+        </div>
+        <div class="grid">
+          {categories.map((category) => (
+            <article class="card">
+              <h3><a href={category.path}>{category.name}</a></h3>
+              <p>{category.description}</p>
+              <p class="muted">主な導線: {category.monetization}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-heading">
+          <h2>まず読むべき記事</h2>
+          <p class="muted">収益導線より先に、判断基準を作るための記事です。</p>
+        </div>
+        <div class="grid">
+          {articles.map((article) => <ArticleCard article={article} />)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid--2">
+        <div>
+          <h2>キャリアルート診断</h2>
+          <p>年収、正社員経験、退職の言い出しやすさ、学習時間から、最初に取るべき行動を整理します。</p>
+          <a class="button" href="/diagnosis/career-route-check/">診断ページへ</a>
+        </div>
+        <div>
+          <h2>比較LPへの導線</h2>
+          <p>転職支援、スクール、AI/ITスクールを、対象者と注意点から比較します。</p>
+          <div class="button-row">
+            <a class="button button--secondary" href="/lp/job-change-support/">転職支援</a>
+            <a class="button button--secondary" href="/lp/school-comparison/">スクール比較</a>
+            <a class="button button--secondary" href="/lp/ai-it-school-comparison/">AI/IT比較</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="narrow">
+        <h2>編集方針</h2>
+        <p>当サイトは、特定サービスの利用を保証せず、読者が自分の状況に合わせて判断できるよう、選択肢・注意点・向いていないケースを併記します。</p>
+        <a href="/editorial-policy/">編集方針を読む</a>
+        <AffiliateDisclosure />
+      </div>
+    </section>
+  </main>
+</Layout>

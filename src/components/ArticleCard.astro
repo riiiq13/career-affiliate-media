@@ -1,0 +1,10 @@
+---
+const { article } = Astro.props;
+---
+
+<article class="article-card">
+  <div class="article-card__category">{article.data.category}</div>
+  <h3><a href={`/articles/${article.slug}/`}>{article.data.title}</a></h3>
+  <p>{article.data.description}</p>
+  <a href={`/articles/${article.slug}/`}>記事を読む</a>
+</article>

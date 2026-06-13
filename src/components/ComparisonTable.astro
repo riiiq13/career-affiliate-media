@@ -1,0 +1,37 @@
+---
+type Row = {
+  name: string;
+  type: string;
+  bestFor: string;
+  caution: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+};
+
+const { rows = [] } = Astro.props as { rows: Row[] };
+---
+
+<table class="comparison-table">
+  <thead>
+    <tr>
+      <th>選択肢</th>
+      <th>種類</th>
+      <th>向いている人</th>
+      <th>注意点</th>
+      <th>導線</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map((row) => (
+      <tr>
+        <td><strong>{row.name}</strong></td>
+        <td>{row.type}</td>
+        <td>{row.bestFor}</td>
+        <td>{row.caution}</td>
+        <td>
+          {row.ctaHref ? <a class="button" href={row.ctaHref}>{row.ctaLabel ?? "詳しく見る"}</a> : "状況に合わせて検討"}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>

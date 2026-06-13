@@ -1,0 +1,21 @@
+---
+const navItems = [
+  { label: "未経験転職", href: "/job-change/" },
+  { label: "資格・スクール", href: "/school/" },
+  { label: "AIキャリア", href: "/ai-career/" },
+  { label: "退職判断", href: "/quit-work/" },
+  { label: "診断", href: "/diagnosis/career-route-check/" }
+];
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label="未経験キャリア研究所 トップへ">
+      <span class="brand__mark">未</span>
+      <span>未経験キャリア研究所</span>
+    </a>
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </div>
+</header>

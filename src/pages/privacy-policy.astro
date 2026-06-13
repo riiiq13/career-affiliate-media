@@ -1,0 +1,21 @@
+---
+import Layout from "../components/Layout.astro";
+import { makeWebPageSchema } from "../utils/schema";
+
+const description = "未経験キャリア研究所のプライバシーポリシーです。個人情報、アクセス解析、広告配信、Cookieの利用について記載します。";
+---
+
+<Layout title="プライバシーポリシー" description={description} path="/privacy-policy/" jsonLd={makeWebPageSchema({ title: "プライバシーポリシー", description, path: "/privacy-policy/" })}>
+  <main class="section">
+    <div class="narrow">
+      <h1>プライバシーポリシー</h1>
+      <p>当サイトでは、お問い合わせやアクセス解析のために、必要な範囲で情報を取得する場合があります。取得した情報は、サイト運営、品質改善、不正利用防止の目的で利用します。</p>
+      <h2>Cookieについて</h2>
+      <p>当サイトでは、アクセス解析や広告配信のためにCookieを利用する場合があります。ブラウザ設定によりCookieを無効化できます。</p>
+      <h2>アクセス解析</h2>
+      <p>アクセス解析ツールを導入する場合、匿名のトラフィックデータを収集することがあります。個人を特定する目的では利用しません。</p>
+      <h2>広告配信</h2>
+      <p>当サイトはアフィリエイト広告を利用しています。広告リンク先での個人情報の取り扱いは、各サービスの規約とプライバシーポリシーをご確認ください。</p>
+    </div>
+  </main>
+</Layout>

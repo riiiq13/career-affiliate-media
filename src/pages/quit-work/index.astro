@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import CategoryHero from "../../components/CategoryHero.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import CTABox from "../../components/CTABox.astro";
+import { categories } from "../../utils/seo";
+import { makeBreadcrumbSchema, makeWebPageSchema } from "../../utils/schema";
+
+const category = categories.find((item) => item.slug === "quit-work");
+const articles = (await getCollection("articles")).filter((article) => article.data.category === "仕事辞めたい・退職判断");
+const breadcrumbs = [{ label: "トップ", href: "/" }, { label: "仕事辞めたい・退職判断", href: "/quit-work/" }];
+const jsonLd = [
+  makeWebPageSchema({ title: "仕事辞めたい・退職判断", description: category.description, path: "/quit-work/" }),
+  makeBreadcrumbSchema(breadcrumbs)
+];
+---
+
+<Layout title="仕事辞めたい・退職判断" description={category.description} path="/quit-work/" jsonLd={jsonLd}>
+  <main>
+    <CategoryHero title="仕事辞めたい・退職判断" description={category.description} monetization={category.monetization} />
+    <section class="section">
+      <div class="container">
+        <div class="notice">
+          <h2>退職代行は補助的な選択肢です</h2>
+          <p>このカテゴリでは、退職代行を主力商材として扱いません。未払い賃金、有給交渉、損害賠償、ハラスメントなど法律問題が絡む場合は、弁護士など専門家への相談を優先してください。</p>
+        </div>
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-heading">
+          <h2>退職判断の記事</h2>
+          <p class="muted">辞める前に、生活費・相談先・次のキャリアを整理します。</p>
+        </div>
+        <div class="grid">
+          {articles.length > 0 ? (
+            articles.map((article) => <ArticleCard article={article} />)
+          ) : (
+            <div class="notice">
+              <h3>退職判断は次のキャリアとセットで整理します</h3>
+              <p>退職代行を主な導線にはせず、退職前の確認事項、相談先、転職支援の比較を中心に整理しています。</p>
+              <div class="button-row">
+                <a class="button" href="/lp/job-change-support/">転職支援を比較する</a>
+                <a class="button button--secondary" href="/diagnosis/career-route-check/">診断で確認する</a>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <CTABox
+          title="辞める前に次の選択肢を確認する"
+          text="退職だけで解決しない悩みもあります。転職支援やキャリア相談で、辞めた後の選択肢を先に確認しましょう。"
+          primaryHref="/lp/job-change-support/"
+          primaryLabel="転職支援を比較する"
+          secondaryHref="/diagnosis/career-route-check/"
+          secondaryLabel="診断で整理する"
+        />
+      </div>
+    </section>
+  </main>
+</Layout>

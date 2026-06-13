@@ -1,0 +1,16 @@
+---
+import Layout from "../components/Layout.astro";
+import { makeWebPageSchema } from "../utils/schema";
+
+const description = "未経験キャリア研究所の運営者情報です。学歴・職歴に自信がない人のキャリア再設計に必要な選択肢を整理します。";
+---
+
+<Layout title="運営者情報" description={description} path="/about/" jsonLd={makeWebPageSchema({ title: "運営者情報", description, path: "/about/" })}>
+  <main class="section">
+    <div class="narrow">
+      <h1>運営者情報</h1>
+      <p>未経験キャリア研究所は、学歴・職歴・正社員経験に自信がない20代から30代向けに、転職・資格・AI活用・スクール・副業・退職判断を整理するメディアです。</p>
+      <p>当サイトは専門家を名乗るものではありません。法律、税務、労務、医療など専門判断が必要な場合は、必ず該当分野の専門家に相談してください。</p>
+    </div>
+  </main>
+</Layout>

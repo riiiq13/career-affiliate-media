@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import CategoryHero from "../../components/CategoryHero.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import CTABox from "../../components/CTABox.astro";
+import { categories } from "../../utils/seo";
+import { makeBreadcrumbSchema, makeWebPageSchema } from "../../utils/schema";
+
+const category = categories.find((item) => item.slug === "ai-career");
+const articles = (await getCollection("articles")).filter((article) => article.data.category === "AIキャリア");
+const breadcrumbs = [{ label: "トップ", href: "/" }, { label: "AIキャリア", href: "/ai-career/" }];
+const jsonLd = [
+  makeWebPageSchema({ title: "AIキャリア", description: category.description, path: "/ai-career/" }),
+  makeBreadcrumbSchema(breadcrumbs)
+];
+---
+
+<Layout title="AIキャリア" description={category.description} path="/ai-career/" jsonLd={jsonLd}>
+  <main>
+    <CategoryHero title="AIキャリア" description={category.description} monetization={category.monetization} />
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>AIキャリアの記事</h2>
+          <p class="muted">AIを学ぶことより、仕事で説明できる使い方を重視します。</p>
+        </div>
+        <div class="grid">
+          {articles.length > 0 ? (
+            articles.map((article) => <ArticleCard article={article} />)
+          ) : (
+            <div class="notice">
+              <h3>AIキャリアは比較ページと診断から整理できます</h3>
+              <p>AIを転職・現職改善・副業のどれに使うかで、学ぶべき内容が変わります。まずは診断とAI/ITスクール比較で方向性を確認してください。</p>
+              <div class="button-row">
+                <a class="button" href="/lp/ai-it-school-comparison/">AI/ITスクール比較を見る</a>
+                <a class="button button--secondary" href="/diagnosis/career-route-check/">診断で確認する</a>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container">
+        <CTABox
+          title="AI/ITスクールを現実的に比較する"
+          text="AIスクール、プログラミングスクール、AI活用講座は、目的と成果物の作りやすさで選ぶ必要があります。"
+          primaryHref="/lp/ai-it-school-comparison/"
+          primaryLabel="AI/ITスクール比較を見る"
+          secondaryHref="/diagnosis/career-route-check/"
+          secondaryLabel="診断で優先順位を見る"
+        />
+      </div>
+    </section>
+  </main>
+</Layout>

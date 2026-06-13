@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  monetization: string;
+}
+
+const { title, description, monetization } = Astro.props;
+---
+
+<section class="category-hero">
+  <div class="container">
+    <p class="eyebrow">Category</p>
+    <h1>{title}</h1>
+    <p class="lead">{description}</p>
+    <ul class="tag-list" aria-label="主な収益導線">
+      {monetization.split("、").map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>

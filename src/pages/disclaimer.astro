@@ -1,0 +1,19 @@
+---
+import Layout from "../components/Layout.astro";
+import { makeWebPageSchema } from "../utils/schema";
+
+const description = "未経験キャリア研究所の免責事項です。掲載情報、広告、外部リンク、専門家相談に関する注意点を記載します。";
+---
+
+<Layout title="免責事項" description={description} path="/disclaimer/" jsonLd={makeWebPageSchema({ title: "免責事項", description, path: "/disclaimer/" })}>
+  <main class="section">
+    <div class="narrow">
+      <h1>免責事項</h1>
+      <p>当サイトの情報は、一般的なキャリア選択の整理を目的としたものです。転職、学習、退職、収入増、資格取得、案件獲得などの結果を保証するものではありません。</p>
+      <h2>専門家への相談</h2>
+      <p>未払い賃金、有給交渉、損害賠償、ハラスメント、労働紛争など法律問題がある場合は、弁護士など専門家へ相談してください。</p>
+      <h2>広告・外部リンク</h2>
+      <p>当サイトはアフィリエイト広告を利用しています。リンク先の商品・サービス内容、価格、条件は変更される場合があります。利用前に公式情報を確認してください。</p>
+    </div>
+  </main>
+</Layout>

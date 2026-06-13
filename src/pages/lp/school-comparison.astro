@@ -1,0 +1,62 @@
+---
+import Layout from "../../components/Layout.astro";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
+import ComparisonTable from "../../components/ComparisonTable.astro";
+import FAQBlock from "../../components/FAQBlock.astro";
+import CTABox from "../../components/CTABox.astro";
+import { makeFAQPageSchema, makeWebPageSchema } from "../../utils/schema";
+
+const description = "資格スクール、ITスクール、Webマーケティングスクール、通信講座を、未経験者の目的別に比較します。";
+const faqs = [
+  { question: "未経験ならスクールに通うべきですか？", answer: "目的と学習時間によります。求人で求められるスキルが明確ならスクールが選択肢になりますが、まず無料教材や求人確認で足りる場合もあります。" },
+  { question: "資格とスクールはどちらが先ですか？", answer: "資格が応募条件に近い職種なら資格、成果物や実務スキルが重視される職種ならスクールを検討します。" },
+  { question: "高額講座を選ぶ前に見るべき点は？", answer: "受講期間、サポート範囲、返金条件、卒業後に作れる成果物、求人との接続を確認してください。" }
+];
+const rows = [
+  { name: "資格スクール", type: "資格対策", bestFor: "事務、経理、医療事務など資格が評価されやすい職種を狙う人", caution: "資格だけで採用が決まるわけではない", ctaHref: "/articles/shikaku-torubeki-hito/", ctaLabel: "記事へ" },
+  { name: "ITスクール", type: "実務スキル", bestFor: "IT職種に必要な基礎を短期で作りたい人", caution: "受講後の成果物と求人接続を確認する", ctaHref: "/articles/it-school-mikeiken/", ctaLabel: "記事へ" },
+  { name: "Webマーケスクール", type: "マーケ基礎", bestFor: "広告運用、SEO、SNS運用に関心がある人", caution: "実務経験の作り方まで確認する", ctaHref: "/school/", ctaLabel: "カテゴリへ" },
+  { name: "通信講座", type: "低負担学習", bestFor: "働きながら基礎を固めたい人", caution: "独学との違いを確認する", ctaHref: "/school/", ctaLabel: "カテゴリへ" }
+];
+---
+
+<Layout title="資格・スクール比較" description={description} path="/lp/school-comparison/" jsonLd={[makeWebPageSchema({ title: "資格・スクール比較", description, path: "/lp/school-comparison/" }), makeFAQPageSchema(faqs)]}>
+  <main>
+    <section class="hero">
+      <div class="container hero__content">
+        <p class="eyebrow">School Comparison</p>
+        <h1>資格・スクール比較</h1>
+        <p class="lead">結論として、資格が応募条件に近い職種は資格対策、成果物や実務スキルが必要な職種はスクール、費用を抑えたい人は通信講座や独学から検討します。</p>
+        <AffiliateDisclosure />
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>誰向けか</h2>
+        <p>何の資格を取ればいいか分からない人、ITやWebマーケを学ぶべきか迷っている人向けです。</p>
+        <h2>選び方</h2>
+        <p>先に希望職種を決め、求人票で必要条件を確認します。そのうえで、資格・スクール・通信講座のどれが不足を埋めるか判断します。</p>
+        <ComparisonTable rows={rows} />
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container grid">
+        <div class="card"><h2>各サービスの特徴</h2><p>資格スクールは試験対策、ITスクールは制作物、Webマーケスクールは運用理解、通信講座は継続しやすさが軸です。</p></div>
+        <div class="card"><h2>向いている人</h2><p>学ぶ目的、週の学習時間、転職したい職種がある程度見えている人に向いています。</p></div>
+        <div class="card"><h2>向いていない人</h2><p>学習目的が曖昧なまま高額講座を選ぶ人には向きません。先に求人と職種を確認しましょう。</p></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>注意点</h2>
+        <p>スクール利用で転職や収入増が保証されるわけではありません。卒業後に作れる成果物とサポート範囲を必ず確認してください。</p>
+        <FAQBlock faqs={faqs} />
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container">
+        <CTABox title="先に学ぶべきか診断する" text="資格やスクールに費用をかける前に、転職活動を先に進めるべきか、学習を優先すべきかを整理しましょう。" primaryHref="/diagnosis/career-route-check/" primaryLabel="診断で確認する" secondaryHref="/school/" secondaryLabel="関連記事を見る" />
+      </div>
+    </section>
+  </main>
+</Layout>

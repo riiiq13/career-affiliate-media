@@ -1,0 +1,19 @@
+---
+type FAQ = {
+  question: string;
+  answer: string;
+};
+
+const { faqs = [] } = Astro.props as { faqs: FAQ[] };
+---
+
+{faqs.length > 0 && (
+  <div class="faq-block">
+    {faqs.map((faq) => (
+      <details>
+        <summary>{faq.question}</summary>
+        <p>{faq.answer}</p>
+      </details>
+    ))}
+  </div>
+)}

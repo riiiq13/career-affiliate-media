@@ -1,0 +1,62 @@
+---
+import Layout from "../../components/Layout.astro";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
+import ComparisonTable from "../../components/ComparisonTable.astro";
+import FAQBlock from "../../components/FAQBlock.astro";
+import CTABox from "../../components/CTABox.astro";
+import { makeFAQPageSchema, makeWebPageSchema } from "../../utils/schema";
+
+const description = "AIスクール、プログラミングスクール、AI活用講座を、未経験者の目的と成果物の作りやすさから比較します。";
+const faqs = [
+  { question: "AIスクールは意味がありますか？", answer: "目的が明確なら選択肢になります。AIを学ぶだけでなく、業務改善、制作物、転職で説明できる成果につなげられるかが重要です。" },
+  { question: "プログラミングとAI活用はどちらが先ですか？", answer: "すぐ仕事で使いたいならAI活用、開発職を目指すならプログラミング基礎から検討します。" },
+  { question: "副業目的で高額講座を選んでもいいですか？", answer: "案件獲得が保証されるわけではありません。先に無料教材や小さな制作物で適性を確認してから検討してください。" }
+];
+const rows = [
+  { name: "AIスクール", type: "AI活用・業務改善", bestFor: "AIを仕事や転職で説明できる成果にしたい人", caution: "成果物とサポート範囲を確認する", ctaHref: "/ai-career/", ctaLabel: "カテゴリへ" },
+  { name: "プログラミングスクール", type: "開発基礎", bestFor: "Web制作や開発職を目指す人", caution: "学習負荷と転職支援の実態を確認する", ctaHref: "/lp/school-comparison/", ctaLabel: "比較へ" },
+  { name: "AI活用講座", type: "短期学習", bestFor: "現職や副業でAIを試したい人", caution: "誇大な収益表現に注意する", ctaHref: "/ai-career/", ctaLabel: "カテゴリへ" },
+  { name: "自作PDF・教材", type: "低コスト教材", bestFor: "まず小さく試したい人", caution: "質問サポートがない場合もある", ctaHref: "/diagnosis/career-route-check/", ctaLabel: "診断へ" }
+];
+---
+
+<Layout title="AI/ITスクール比較" description={description} path="/lp/ai-it-school-comparison/" jsonLd={[makeWebPageSchema({ title: "AI/ITスクール比較", description, path: "/lp/ai-it-school-comparison/" }), makeFAQPageSchema(faqs)]}>
+  <main>
+    <section class="hero">
+      <div class="container hero__content">
+        <p class="eyebrow">AI / IT School</p>
+        <h1>AI/ITスクール比較</h1>
+        <p class="lead">結論として、現職で使うならAI活用、開発職を狙うならプログラミング、転職で説明できる成果を作りたいなら成果物重視のAI/ITスクールが選択肢になります。</p>
+        <AffiliateDisclosure />
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>誰向けか</h2>
+        <p>AIを仕事・転職・副業に使いたいが、何から学ぶべきか迷っている人向けです。</p>
+        <h2>選び方</h2>
+        <p>最初に、転職、現職の効率化、副業、開発職のどれを目指すか決めます。目的が違うと、選ぶ講座も学習時間も変わります。</p>
+        <ComparisonTable rows={rows} />
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container grid">
+        <div class="card"><h2>各サービスの特徴</h2><p>AIスクールは活用設計、プログラミングスクールは開発基礎、AI活用講座は短期実践、自作教材は低コストで試せる点が特徴です。</p></div>
+        <div class="card"><h2>向いている人</h2><p>学習後に作りたい成果物や、仕事で使う場面を説明できる人に向いています。</p></div>
+        <div class="card"><h2>向いていない人</h2><p>短期間で大きな収入を保証してほしい人には向きません。誇大表現には注意が必要です。</p></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>注意点</h2>
+        <p>AIやITの学習は、講座を受けるだけで結果が出るものではありません。仕事で使った例、制作物、応募先で説明できる成果に変える必要があります。</p>
+        <FAQBlock faqs={faqs} />
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container">
+        <CTABox title="AIを何に使うか先に決める" text="AIを学ぶ前に、転職、現職改善、副業、開発職のどれを優先するか整理すると、無駄な受講を避けやすくなります。" primaryHref="/diagnosis/career-route-check/" primaryLabel="診断で整理する" secondaryHref="/ai-career/" secondaryLabel="AIキャリア記事を見る" />
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,172 @@
+<section class="diagnosis-panel" id="career-route-diagnosis">
+  <form data-diagnosis-form>
+    <div class="grid grid--2">
+      <label>
+        現在の年収
+        <select name="income" required>
+          <option value="low">300万円未満</option>
+          <option value="middle">300万円から450万円</option>
+          <option value="high">450万円以上</option>
+        </select>
+      </label>
+      <label>
+        正社員経験
+        <select name="employee" required>
+          <option value="none">ほとんどない</option>
+          <option value="some">少しある</option>
+          <option value="stable">継続経験がある</option>
+        </select>
+      </label>
+      <label>
+        今の仕事を続けたいか
+        <select name="continueWork" required>
+          <option value="no">続けたくない</option>
+          <option value="unclear">分からない</option>
+          <option value="yes">条件次第で続けたい</option>
+        </select>
+      </label>
+      <label>
+        退職を言い出せるか
+        <select name="quitTalk" required>
+          <option value="hard">かなり難しい</option>
+          <option value="possible">準備すれば言える</option>
+          <option value="easy">言える</option>
+        </select>
+      </label>
+      <label>
+        学習に使える時間
+        <select name="studyTime" required>
+          <option value="low">週3時間未満</option>
+          <option value="middle">週3から7時間</option>
+          <option value="high">週8時間以上</option>
+        </select>
+      </label>
+      <label>
+        興味のある分野
+        <select name="interest" required>
+          <option value="job">転職・求人</option>
+          <option value="school">資格・スクール</option>
+          <option value="ai">AI・IT・副業</option>
+          <option value="life">生活費・働き方</option>
+        </select>
+      </label>
+      <label>
+        すぐ収入を上げたいか
+        <select name="fastIncome" required>
+          <option value="yes">できるだけ早く上げたい</option>
+          <option value="no">半年から1年で整えたい</option>
+        </select>
+      </label>
+      <label>
+        半年から1年でキャリアを作りたいか
+        <select name="careerTerm" required>
+          <option value="yes">作りたい</option>
+          <option value="unclear">まだ分からない</option>
+          <option value="no">まず生活を安定させたい</option>
+        </select>
+      </label>
+    </div>
+    <button class="button" type="submit">診断結果を見る</button>
+  </form>
+  <div class="notice" data-diagnosis-result hidden></div>
+</section>
+
+<script>
+  const resultMap = {
+    job: {
+      title: "まず転職活動を始めるべき人",
+      text: "現在の職場で収入や経験が伸びにくい場合は、求人を見て市場感をつかむことが先です。応募前に職種の比較とキャリア相談を組み合わせると判断しやすくなります。",
+      links: [
+        ["/lp/job-change-support/", "転職支援LPを見る"],
+        ["/job-change/", "未経験転職の記事を見る"]
+      ]
+    },
+    school: {
+      title: "先に資格・スクールを検討すべき人",
+      text: "希望職種に必要な基礎が不足している場合は、短期で学べる資格やスクールが選択肢になります。費用と学習時間を先に確認しましょう。",
+      links: [
+        ["/lp/school-comparison/", "スクール比較を見る"],
+        ["/school/", "資格・スクールの記事を見る"]
+      ]
+    },
+    quit: {
+      title: "今の職場を辞める準備をすべき人",
+      text: "心身の負担が大きい、退職を言い出せない、ハラスメントがある場合は、先に退職手順と相談先を整理してください。法律問題は弁護士など専門家への相談が必要です。",
+      links: [
+        ["/quit-work/", "退職判断の記事を見る"],
+        ["/lp/job-change-support/", "辞める前に転職支援を比較する"]
+      ]
+    },
+    ai: {
+      title: "AI活用・副業から試すべき人",
+      text: "すぐ転職するより、現職や副業でAIを使う経験を作る方が合う場合があります。小さな実績を作ってから転職やスクールを検討しましょう。",
+      links: [
+        ["/lp/ai-it-school-comparison/", "AI/ITスクール比較を見る"],
+        ["/ai-career/", "AIキャリアの記事を見る"]
+      ]
+    },
+    life: {
+      title: "生活費・働き方を見直すべき人",
+      text: "学習時間や生活費に余裕が少ない場合は、いきなり高額講座を選ぶ前に固定費、働き方、求人登録の順で見直すと安全です。",
+      links: [
+        ["/articles/20dai-kouhan-keireki-yowai-tenshoku/", "職歴に自信がない人の戦略を見る"],
+        ["/lp/job-change-support/", "求人登録の選び方を見る"]
+      ]
+    }
+  };
+
+  const form = document.querySelector("[data-diagnosis-form]");
+  const result = document.querySelector("[data-diagnosis-result]");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    let route = data.get("interest") || "job";
+
+    if (data.get("continueWork") === "no" && data.get("quitTalk") === "hard") {
+      route = "quit";
+    } else if (data.get("studyTime") === "low" && data.get("income") === "low") {
+      route = "life";
+    } else if (data.get("interest") === "ai") {
+      route = "ai";
+    } else if (data.get("interest") === "school" || data.get("studyTime") === "high") {
+      route = "school";
+    } else if (data.get("fastIncome") === "yes") {
+      route = "job";
+    }
+
+    const selected = resultMap[route];
+    result.hidden = false;
+    result.innerHTML = `
+      <h2>${selected.title}</h2>
+      <p>${selected.text}</p>
+      <div class="button-row">
+        ${selected.links.map(([href, label]) => `<a class="button" href="${href}">${label}</a>`).join("")}
+      </div>
+    `;
+  });
+</script>
+
+<style>
+  form {
+    display: grid;
+    gap: 22px;
+  }
+
+  label {
+    display: grid;
+    gap: 8px;
+    font-weight: 800;
+  }
+
+  select {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 10px;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    color: var(--color-ink);
+    background: #fff;
+    font: inherit;
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+import Layout from "../../components/Layout.astro";
+import CTABox from "../../components/CTABox.astro";
+import { makeWebPageSchema } from "../../utils/schema";
+
+const description = "未経験からキャリアを立て直したい人向けに、転職・資格・AI活用・退職判断の優先順位を整理する診断ページです。";
+---
+
+<Layout title="診断ページ" description={description} path="/diagnosis/" jsonLd={makeWebPageSchema({ title: "診断ページ", description, path: "/diagnosis/" })}>
+  <main class="section">
+    <div class="container">
+      <CTABox
+        title="未経験キャリアルート診断"
+        text="年収、職歴、学習時間、退職のしやすさから、先に取るべき行動を整理します。"
+        primaryHref="/diagnosis/career-route-check/"
+        primaryLabel="診断を始める"
+        secondaryHref="/"
+        secondaryLabel="トップへ戻る"
+      />
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import CategoryHero from "../../components/CategoryHero.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import CTABox from "../../components/CTABox.astro";
+import { categories } from "../../utils/seo";
+import { makeBreadcrumbSchema, makeWebPageSchema } from "../../utils/schema";
+
+const category = categories.find((item) => item.slug === "job-change");
+const articles = (await getCollection("articles")).filter((article) => article.data.category === "未経験転職");
+const breadcrumbs = [{ label: "トップ", href: "/" }, { label: "未経験転職", href: "/job-change/" }];
+const jsonLd = [
+  makeWebPageSchema({ title: "未経験転職", description: category.description, path: "/job-change/" }),
+  makeBreadcrumbSchema(breadcrumbs)
+];
+---
+
+<Layout title="未経験転職" description={category.description} path="/job-change/" jsonLd={jsonLd}>
+  <main>
+    <CategoryHero title="未経験転職" description={category.description} monetization={category.monetization} />
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>未経験転職の記事</h2>
+          <p class="muted">応募しやすさだけでなく、次につながる経験を基準にします。</p>
+        </div>
+        <div class="grid">
+          {articles.map((article) => <ArticleCard article={article} />)}
+        </div>
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container">
+        <CTABox
+          title="職歴に自信がない人向けの転職支援を比較する"
+          text="転職エージェント、キャリア相談、求人登録は役割が違います。まずは目的別に比較して、相談すべき相手を整理しましょう。"
+          primaryHref="/lp/job-change-support/"
+          primaryLabel="転職支援LPを見る"
+          secondaryHref="/diagnosis/career-route-check/"
+          secondaryLabel="診断で確認する"
+        />
+      </div>
+    </section>
+  </main>
+</Layout>

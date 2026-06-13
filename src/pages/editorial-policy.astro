@@ -1,0 +1,21 @@
+---
+import Layout from "../components/Layout.astro";
+import { makeWebPageSchema } from "../utils/schema";
+
+const description = "未経験キャリア研究所の編集方針です。誇張せず、向いている人と向いていない人、注意点を併記します。";
+---
+
+<Layout title="編集方針" description={description} path="/editorial-policy/" jsonLd={makeWebPageSchema({ title: "編集方針", description, path: "/editorial-policy/" })}>
+  <main class="section">
+    <div class="narrow">
+      <h1>編集方針</h1>
+      <p>当サイトは、読者が自分の状況に応じて次の選択肢を判断できるよう、結論、比較、判断基準、注意点、向いていないケースを併記します。</p>
+      <h2>広告との向き合い方</h2>
+      <p>アフィリエイト広告を利用しますが、掲載内容は編集方針に基づき作成し、特定サービスの利用や成果を保証しません。</p>
+      <h2>表現ルール</h2>
+      <p>「必ず転職できる」「誰でも稼げる」「未経験でも必ず年収アップ」などの断定表現は使いません。条件によって異なる点を明記します。</p>
+      <h2>退職代行の扱い</h2>
+      <p>退職代行は主力商材ではなく、退職判断や労働問題の選択肢の一部として扱います。法律問題が絡む場合は、弁護士など専門家への相談を促します。</p>
+    </div>
+  </main>
+</Layout>

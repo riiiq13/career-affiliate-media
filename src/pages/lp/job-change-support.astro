@@ -1,0 +1,62 @@
+---
+import Layout from "../../components/Layout.astro";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
+import ComparisonTable from "../../components/ComparisonTable.astro";
+import FAQBlock from "../../components/FAQBlock.astro";
+import CTABox from "../../components/CTABox.astro";
+import { makeFAQPageSchema, makeWebPageSchema } from "../../utils/schema";
+
+const description = "職歴に自信がない20代から30代向けに、転職エージェント、キャリア相談、求人登録、派遣登録を目的別に比較します。";
+const faqs = [
+  { question: "職歴に自信がなくても転職エージェントは使えますか？", answer: "使える場合があります。ただし、希望条件や職歴によって紹介求人は変わるため、求人登録やキャリア相談も併用すると判断しやすくなります。" },
+  { question: "キャリア相談と転職エージェントの違いは何ですか？", answer: "転職エージェントは求人紹介が中心で、キャリア相談は整理や意思決定の支援が中心です。目的に合わせて選ぶことが大切です。" },
+  { question: "退職前に登録した方がいいですか？", answer: "生活費に不安がある場合は、退職前に求人や相談先を確認した方が安全です。退職を急ぐ事情がある場合も、次の選択肢を並行して見ておきましょう。" }
+];
+const rows = [
+  { name: "転職エージェント", type: "求人紹介", bestFor: "応募先を増やしたい人", caution: "紹介求人が希望に合わない場合もある", ctaLabel: "比較する", ctaHref: "#cta" },
+  { name: "キャリア相談", type: "意思決定支援", bestFor: "何を選ぶべきか整理したい人", caution: "求人紹介がないサービスもある", ctaLabel: "診断へ", ctaHref: "/diagnosis/career-route-check/" },
+  { name: "求人登録", type: "情報収集", bestFor: "市場感を知りたい人", caution: "応募先の見極めが必要", ctaLabel: "記事を読む", ctaHref: "/job-change/" },
+  { name: "派遣登録", type: "働き方変更", bestFor: "経験を積みながら収入を安定させたい人", caution: "長期キャリアの設計も必要", ctaLabel: "診断へ", ctaHref: "/diagnosis/career-route-check/" }
+];
+---
+
+<Layout title="職歴に自信がない人向け転職支援比較" description={description} path="/lp/job-change-support/" jsonLd={[makeWebPageSchema({ title: "職歴に自信がない人向け転職支援比較", description, path: "/lp/job-change-support/" }), makeFAQPageSchema(faqs)]}>
+  <main>
+    <section class="hero">
+      <div class="container hero__content">
+        <p class="eyebrow">Job Change Support</p>
+        <h1>職歴に自信がない人向け転職支援比較</h1>
+        <p class="lead">結論として、すぐ応募したい人は転職エージェント、方向性から整理したい人はキャリア相談、まず市場感を見たい人は求人登録が選択肢になります。</p>
+        <AffiliateDisclosure />
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>誰向けか</h2>
+        <p>正社員経験が少ない、低収入から抜けたい、未経験転職が怖い人向けです。退職前に求人と相談先を確認したい人にも向いています。</p>
+        <h2>選び方</h2>
+        <p>求人紹介、意思決定支援、情報収集のどれが必要かを先に分けてください。いきなり一つに絞るより、目的別に使い分ける方が判断しやすくなります。</p>
+        <ComparisonTable rows={rows} />
+      </div>
+    </section>
+    <section class="section section--soft">
+      <div class="container grid">
+        <div class="card"><h2>各サービスの特徴</h2><p>転職エージェントは求人紹介、キャリア相談は棚卸し、求人登録は市場把握に強みがあります。</p></div>
+        <div class="card"><h2>向いている人</h2><p>行動しながら選択肢を増やしたい人、職務経歴書の見せ方を相談したい人に向いています。</p></div>
+        <div class="card"><h2>向いていない人</h2><p>希望条件が固まっていないまま高望みだけをしたい人には向きません。条件の優先順位を整理しましょう。</p></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2>注意点</h2>
+        <p>特定サービスの利用で転職成功を保証するものではありません。雇用条件、紹介求人、サポート範囲は必ず自分で確認してください。</p>
+        <FAQBlock faqs={faqs} />
+      </div>
+    </section>
+    <section class="section section--soft" id="cta">
+      <div class="container">
+        <CTABox title="まず比較して相談先を決める" text="職歴に自信がない人ほど、求人紹介だけでなくキャリア相談や求人登録を組み合わせると現実的な選択肢が見えます。" primaryHref="/diagnosis/career-route-check/" primaryLabel="診断で優先順位を見る" secondaryHref="/job-change/" secondaryLabel="未経験転職の記事を見る" />
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,45 @@
+---
+import Layout from "../../components/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import DiagnosisBox from "../../components/DiagnosisBox.astro";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
+import { makeBreadcrumbSchema, makeWebPageSchema } from "../../utils/schema";
+
+const description = "読者の状況に応じて、転職活動、資格・スクール、退職準備、AI活用、副業、生活費見直しの優先順位を整理する診断です。";
+const breadcrumbs = [
+  { label: "トップ", href: "/" },
+  { label: "診断", href: "/diagnosis/" },
+  { label: "未経験キャリアルート診断", href: "/diagnosis/career-route-check/" }
+];
+const jsonLd = [
+  makeWebPageSchema({ title: "未経験キャリアルート診断", description, path: "/diagnosis/career-route-check/" }),
+  makeBreadcrumbSchema(breadcrumbs)
+];
+---
+
+<Layout title="未経験キャリアルート診断" description={description} path="/diagnosis/career-route-check/" jsonLd={jsonLd}>
+  <main class="container article-shell">
+    <Breadcrumbs items={breadcrumbs} />
+    <header class="article-header">
+      <p class="eyebrow">Diagnosis</p>
+      <h1>未経験キャリアルート診断</h1>
+      <p class="lead">現在の年収、正社員経験、退職の言い出しやすさ、学習時間、興味分野から、最初に取るべき行動を整理します。</p>
+      <AffiliateDisclosure />
+    </header>
+    <section class="section">
+      <DiagnosisBox />
+    </section>
+    <section class="section section--soft">
+      <div class="grid">
+        <div class="card">
+          <h2>診断結果の見方</h2>
+          <p>診断は医療・法律・職業紹介の専門判断ではありません。自分の状況を整理し、比較ページや関連記事に進むための目安として使ってください。</p>
+        </div>
+        <div class="card">
+          <h2>退職に不安がある場合</h2>
+          <p>未払い賃金、有給交渉、損害賠償、ハラスメントなどがある場合は、退職代行だけで判断せず、弁護士など専門家への相談を検討してください。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
