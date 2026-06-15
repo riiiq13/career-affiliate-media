@@ -1,6 +1,7 @@
 export const site = {
   name: "未経験キャリア研究所",
-  url: import.meta.env.SITE_URL ?? (import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : "https://mikeiken-career-lab.vercel.app"),
+  // 本番は常に固定ドメイン。上書きしたい場合のみ SITE_URL を設定する（VERCEL_URL は使わない）。
+  url: import.meta.env.SITE_URL ?? "https://mikeiken-career-lab.vercel.app",
   description:
     "学歴・職歴に自信がない20代から30代向けに、転職・資格・AI活用・スクール・退職判断を現実的に整理するキャリア再設計メディアです。"
 };
