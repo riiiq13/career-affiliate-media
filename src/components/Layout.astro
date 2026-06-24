@@ -42,6 +42,7 @@ const schemaItems = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boolean);
     <meta property="og:image" content={new URL("/favicon.svg", Astro.site ?? site.url).toString()} />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="google-site-verification" content="SDSevtEUj_1eOIwDsMZthmrR42i5YKHx8vAlpUuxhAc" />
     {schemaItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
   </head>
   <body>
